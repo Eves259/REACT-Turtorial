@@ -4,13 +4,19 @@ Header.propTypes = { //Sets the proptype to a string so if any numbers are put i
 }*/
 //rafce using the extension to make this
 
-import Button from "./Button"
+//wrap components in curly braces to add conditions
 
-const Header = ({ title }) => {
+import Button from "./Button"
+import { useLocation } from "react-router-dom"
+
+const Header = ({ title, onAdd, showAdd }) => { //onAdd is passed into Header as a prop
+    const location = useLocation()
+
     return (
         <header className = "header">
             <h1 /*style = {headingStyle}*/>{title}</h1>
-            <Button color = "green" text = "Hello"/>
+            {/* The text is dynamic so now if the save task part is showing then the text will say close and if it isn't then it will say Add. This works the same for the color. Red for close and green for add */}
+            {location.pathname === "/" &&  (<Button color = {showAdd ? "red" : "green"} text = {showAdd ? "Close" : "Add"} onClick={onAdd} />)} {/* When the Add button is clicked the save task part of the form appears and if it is clicked again it goes away */}
         </header>
     )
 }
